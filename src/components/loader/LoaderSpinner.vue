@@ -1,0 +1,42 @@
+<script setup lang="ts">
+    const props = defineProps({
+        small: Boolean
+    })
+</script>
+
+
+<template>
+    <div class="loader-container">
+        <div :class="['loader', props.small ? 'small' : '']"></div>
+    </div>
+</template>
+
+
+<style lang="scss" scoped>
+    .loader-container {
+        @include flex-centered;
+    }
+
+    .loader {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid $pale-coral;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1500ms linear infinite;
+    }
+
+    .small {
+        border: 3px solid $pale-coral;
+        border-top: 3px solid white;
+        width: 12px;
+        height: 12px;
+        margin-right: 10px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+</style>

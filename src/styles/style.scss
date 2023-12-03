@@ -1,0 +1,155 @@
+html,
+body {
+    padding: 0;
+    margin: auto;
+    font-family: 'Jost', sans-serif;
+    background-color: $background-grey;
+    max-width: 1440px;
+    width: 100%;
+}
+
+a {
+    color: $bright-colar;
+    text-decoration: none;
+}
+
+.error-wrapper {
+    @include flex-centered();
+    padding: 30vh 20px;
+    margin: 0;
+    background-color: #FFF;
+    border-radius: 10px;
+}
+
+.error {
+    @include size-color-weight-height(18px, $bright-colar, 500, 16px);
+    margin-right: 20px;
+}
+
+.empty-text {
+    background-color: $background-grey;
+    margin: 0 0 10px 0;
+    padding: 18px 20px;
+    border-radius: 10px;
+    @include size-color-weight-height(16px, $dark-grey, 400, 24px);
+}
+
+.reload-button {
+    @include button-40();
+    background-color: #FFF;
+    background-image: url('../assets/icons/action-colar.svg');
+    align-self: flex-end;
+}
+
+.reload-button:hover {
+    background-color: $bright-colar;
+    background-image: url('../assets/icons/action-white.svg');
+}
+
+.section-title {
+    background-color: $bright-colar;
+    letter-spacing: 2px;
+    border-radius: 10px;
+    @include size-color-weight-height(20px, #FFF, 500, 30px);
+    padding: 5px 30px;
+}
+
+.loader-wrapper {
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+}
+
+.title-wrapper {
+    @include title-display-gap-bottom(flex, 10px, 20px);
+}
+
+
+@media (max-width: 500px) {
+    .title-wrapper {
+        flex-wrap: wrap;
+        row-gap: 10px;
+    }
+}
+
+
+// :root {
+//   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+//   line-height: 1.5;
+//   font-weight: 400;
+
+//   color-scheme: light dark;
+//   color: rgba(255, 255, 255, 0.87);
+//   background-color: #242424;
+
+//   font-synthesis: none;
+//   text-rendering: optimizeLegibility;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+//   -webkit-text-size-adjust: 100%;
+// }
+
+// a {
+//   font-weight: 500;
+//   color: #646cff;
+//   text-decoration: inherit;
+// }
+// a:hover {
+//   color: #535bf2;
+// }
+
+// body {
+//   margin: 0;
+//   display: flex;
+//   place-items: center;
+//   min-width: 320px;
+//   min-height: 100vh;
+// }
+
+// h1 {
+//   font-size: 3.2em;
+//   line-height: 1.1;
+// }
+
+// button {
+//   border-radius: 8px;
+//   border: 1px solid transparent;
+//   padding: 0.6em 1.2em;
+//   font-size: 1em;
+//   font-weight: 500;
+//   font-family: inherit;
+//   background-color: #1a1a1a;
+//   cursor: pointer;
+//   transition: border-color 0.25s;
+// }
+// button:hover {
+//   border-color: #646cff;
+// }
+// button:focus,
+// button:focus-visible {
+//   outline: 4px auto -webkit-focus-ring-color;
+// }
+
+// .card {
+//   padding: 2em;
+// }
+
+// #app {
+//   max-width: 1280px;
+//   margin: 0 auto;
+//   padding: 2rem;
+//   text-align: center;
+// }
+
+// @media (prefers-color-scheme: light) {
+//   :root {
+//     color: #213547;
+//     background-color: #ffffff;
+//   }
+//   a:hover {
+//     color: #747bff;
+//   }
+//   button {
+//     background-color: #f9f9f9;
+//   }
+// }

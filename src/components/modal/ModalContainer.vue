@@ -1,0 +1,89 @@
+<script setup lang="ts">
+
+    import { useModalStore } from '../../stores/modal.ts';
+    const modalStore = useModalStore();
+    const { toggleVisibility } = modalStore;
+
+    const cancelModalHandler = () => {
+        toggleVisibility();
+    }
+
+</script>
+
+
+<template>
+    <div :class="['backdrop', modalStore.isVisible && 'visible']" @click="cancelModalHandler"></div>
+    <div :class="['modal', modalStore.isVisible && 'visible']" id="open-modal">  
+        <slot></slot>
+    </div>
+</template>
+
+
+<style lang="scss" scoped>
+    .modal {
+        display: none;
+        position: fixed;
+        max-width: 680px;
+        width: 100%;
+        z-index: 10;
+        top: 30px;
+        bottom: 30px;
+        right: max(30px, calc((30px + (100vw - 1440px)/2)));
+        border-radius: 20px;
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: $background-grey;
+        overflow: hidden;
+    }
+    
+    .modal.visible {
+        display: flex;
+        flex-basis: 680px;
+        flex-direction: column;
+        align-items: center;
+        animation: fade-slide-in 0.3s ease-out forwards;
+
+    }
+
+    .backdrop {
+        box-sizing: border-box;
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 10;
+        pointer-events: none;
+        display: none;
+    }
+    
+    .backdrop.visible {
+        display: block;
+        pointer-events: all;
+    }
+
+
+    @media (max-width: 1200px) {
+        .modal {
+            max-width: 680px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
+    @media (max-width: 765px) {
+        .modal {
+            width: 90%;
+        }
+
+    }
+
+    @media (max-width: 375px) {
+        .modal {
+            max-width: 335px;
+            width: 100%;
+        }
+    }
+
+</style>
