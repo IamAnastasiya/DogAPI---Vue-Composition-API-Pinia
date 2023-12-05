@@ -1,21 +1,21 @@
 <script setup lang="ts">
-
     import { useModalStore } from '../../stores/modal.ts';
     const modalStore = useModalStore();
-    const { toggleVisibility } = modalStore;
 
     const cancelModalHandler = () => {
-        toggleVisibility();
+        modalStore.toggleVisibility();
     }
 
 </script>
 
 
 <template>
-    <div :class="['backdrop', modalStore.isVisible && 'visible']" @click="cancelModalHandler"></div>
-    <div :class="['modal', modalStore.isVisible && 'visible']" id="open-modal">  
-        <slot></slot>
-    </div>
+    <Teleport to="#app div">
+        <div :class="['backdrop', modalStore.isVisible && 'visible']" @click="cancelModalHandler"></div>
+        <div :class="['modal', modalStore.isVisible && 'visible']" id="open-modal">  
+            <slot></slot>
+        </div>
+    </Teleport>
 </template>
 
 
