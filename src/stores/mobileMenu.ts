@@ -1,12 +1,12 @@
 import { defineStore } from "pinia";
+import { ref } from 'vue';
 
-export const useMobilemMenuStore = defineStore("mobileMenu", {
-    state: () => {
-        return { isOpen: false }
-    },
-    actions: {
-        toggleMenuVisibility () {
-            this.isOpen = !this.isOpen;
-        }
+export const useMobilemMenuStore = defineStore("mobileMenu", () => {
+    const isOpen = ref(false);
+
+    const toggleMenuVisibility = () => {
+        isOpen.value = !isOpen.value
     }
+
+    return {isOpen, toggleMenuVisibility}
 });

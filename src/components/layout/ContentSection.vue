@@ -8,7 +8,7 @@
     import { v4 as uuidv4 } from 'uuid';
     const mobileMenuStore = useMobilemMenuStore();
     const breedsStore = useAllBreedsStore();
-    const { getAllBreeds } = breedsStore;
+    const { getBreeds } = breedsStore;
 
     const route = useRoute();
 
@@ -24,7 +24,7 @@
     }
 
     if ( !breedsStore.allBreeds.length ) {
-        getAllBreeds();
+        getBreeds();
     }
 
     
