@@ -15,42 +15,27 @@
     import { ORDER_OPTIONS, TYPE_OPTIONS, GALERY_LIMITS } from '../constants/constants.ts';
 
     import { getSetOfImages } from '../services/breeds-api';
-    import { getAllFavorites, addToApiFavorites, deleteFromApiFavorites } from '../services/favorites-api';
+    import { addToApiFavorites, deleteFromApiFavorites } from '../services/favorites-api';
     import { getCookie } from '../helpers/helpers';
 
     import { useAllBreedsStore } from '../stores/allBreeds.ts';
     import { useModalStore } from '../stores/modal';
+    import { useFavoritesStore } from '../stores/userFavorites';
     const breedsStore = useAllBreedsStore();
     const modalStore = useModalStore();
+    const favoritesStore = useFavoritesStore();
 
     const userId = getCookie('userId');
 
     const isLoading = ref(true);
-    const error = ref(false);
+    const error = ref(favoritesStore.error);
     const order = ref('RAND');
     const type = ref('gif,jpg,png');
     const chosenBreed = ref('');
     const limit = ref(5);
     const baseUrl = ref("images/search?&has_breeds=1&limit=5&order=RAND");
-    let userFavorites = ref<{images: ImageData[]}>({images: []});
-
     const images = ref<ImageData[]>([]);
 
-    const fetchFavorites = ( async () => {
-        try {
-            const data = await getAllFavorites(userId);
-            if (data.hasError) {
-                throw new Error('failed to fetch favorites')
-            } else {
-                if (data && data.length) {
-                    userFavorites.value.images = data.map((item: ImageData) => ({ ...item, isFav: true}));
-                }
-            }
-        } catch (er) {
-            console.warn('Error in API request:', er);
-            error.value = true;
-        } 
-    });
 
     const fetchImages = async (url: string) => {
         isLoading.value = true;
@@ -64,8 +49,8 @@
             const newImages = data.map((item: ApiImageData) => ({
                 image: { url: item.url }, 
                 image_id: item.id,
-                isFav: userFavorites.value.images ? 
-                    userFavorites.value.images.some((favorite: ImageData) => favorite.image_id === item.id) : false
+                isFav: favoritesStore.favorites ? 
+                    favoritesStore.favorites.some((favorite: ImageData) => favorite.image_id === item.id) : false
             }));   
             images.value = newImages;
 
@@ -79,7 +64,7 @@
 
 
     onMounted( async () => {
-        await fetchFavorites();
+        await favoritesStore.getUserFavorites();
         await fetchImages(baseUrl.value);
     })
 
@@ -92,10 +77,10 @@
     }
 
     const updateFavoriteStatus = async (id: string) => {
-        const favoriteImageIds = userFavorites.value.images.map(favorite => favorite.image_id);
+        const favoriteImageIds = favoritesStore.favorites.map(favorite => favorite.image_id);
 
         if (favoriteImageIds.includes(id)) {
-            const favoriteItem = userFavorites.value.images.find((item) => item.image_id === id);
+            const favoriteItem = favoritesStore.favorites.find((item) => item.image_id === id);
 
             if (!favoriteItem || !favoriteItem.id) return;
 
@@ -217,37 +202,6 @@
     .filters-wrapper div:nth-child(4) {
         display: flex;
         gap: 10px;
-    }
-
-    .page-btns {
-        margin: auto;
-        display: flex;
-        max-width: 400px;
-        width: 100%;
-        justify-content: space-between;
-        padding-top: 20px;
-    }
-
-    .page-btns button {
-        max-width: 100px;
-        width: 100%;
-        border: none;
-        border-radius: 10px;
-        padding: 10px 20px;
-        @include size-color-weight-height(12px, $bright-colar, 500, 16px);
-        background-color: $pale-coral;
-        cursor: pointer;
-    }
-
-    .page-btns button:hover {
-        background-color: $bright-colar;
-        @include size-color-weight-height(12px, white, 500, 16px);
-    }
-
-    .page-btns .disabled, .page-btns .disabled:hover {
-        background-color: $background-grey;
-        cursor: default;
-        @include size-color-weight-height(12px, $dark-grey, 500, 16px);
     }
 
     .action-button {

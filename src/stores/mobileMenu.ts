@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const useMbilemMenuStore = defineStore("mobileMenu", {
+export const useMobilemMenuStore = defineStore("mobileMenu", {
     state: () => {
         return { isOpen: false }
     },

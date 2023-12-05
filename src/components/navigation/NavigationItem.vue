@@ -2,8 +2,8 @@
     import { useRoute } from 'vue-router';
     import { computed } from 'vue';
     const route = useRoute();
-    import { useMbilemMenuStore } from '../../stores/mobileMenu';
-    const store = useMbilemMenuStore();
+    import { useMobilemMenuStore } from '../../stores/mobileMenu';
+    const store = useMobilemMenuStore();
 
     const props = defineProps({
         image: String,

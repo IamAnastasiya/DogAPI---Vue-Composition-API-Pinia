@@ -1,6 +1,6 @@
 <script setup lang="ts">
-    import { useMbilemMenuStore } from '../../stores/mobileMenu';
-    const store = useMbilemMenuStore();
+    import { useMobilemMenuStore } from '../../stores/mobileMenu';
+    const store = useMobilemMenuStore();
     const { toggleMenuVisibility } = store;
 
 </script>

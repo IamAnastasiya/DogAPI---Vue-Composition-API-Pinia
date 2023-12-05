@@ -10,9 +10,10 @@
     import { ref, onMounted } from 'vue';
 
     const userId = getCookie('userId');
-    const userLikes = ref([]);
+    const dislikes = ref([]);
     const isLoading = ref(false);
     const hasError = ref(false);
+
 
     onMounted (async () => {
         isLoading.value = true;
@@ -23,7 +24,7 @@
             } else {
                 const data = await response.json();
                 if (data && data.length) {
-                    userLikes.value = data.filter((item: ImageData) => item.value === -1);
+                    dislikes.value = data.filter((item: ImageData) => item.value === -1);
                 }
             }
             isLoading.value = false;
@@ -47,12 +48,12 @@
         <LoaderSpinner ></LoaderSpinner>  
     </div>   
 
-    <GridLayout v-if="userLikes.length !== 0 || hasError"
+    <GridLayout v-if="dislikes.length !== 0 || hasError"
         :limit="60"
-        :images="userLikes" 
+        :images="dislikes" 
         :error="hasError"
     ></GridLayout>
-    
-    <p v-if="!userLikes.length && !isLoading && !hasError" class="empty-text">No item found</p>
+
+    <p v-if="!dislikes.length && !isLoading && !hasError" class="empty-text">No item found</p>
 </template>
 

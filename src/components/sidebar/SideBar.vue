@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import NavigationItem from '../navigation/NavigationItem.vue';
-    import { useMbilemMenuStore } from '../../stores/mobileMenu';
-    const store = useMbilemMenuStore();
+    import { useMobilemMenuStore } from '../../stores/mobileMenu';
+    const store = useMobilemMenuStore();
     const { toggleMenuVisibility } = store;
     const votingIconPath = new URL(`../../assets/images/vote-table.png`, import.meta.url).href;
     const breedsIconPath = new URL(`../../assets/images/pet-breeds.png`, import.meta.url).href;
@@ -35,6 +35,7 @@
         left: 50%;
         transform: translateX(-50%);
         background-color: $background-grey;
+        padding-right: 5px;
     }
 
     .cross {

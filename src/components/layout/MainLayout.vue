@@ -3,24 +3,6 @@
     import MainNavigation from '../navigation/MainNavigation.vue';
     import ContentSection from './ContentSection.vue';
     import SideBarVue from '../sidebar/SideBar.vue';
-    import {useAllBreedsStore } from '../../stores/allBreeds.ts';
-    import { getCookie } from '../../helpers/helpers';
-    import { v4 as uuidv4 } from 'uuid';
-
-    const storedUserId = getCookie('userId');
-
-    if (!storedUserId) {
-        const uniqueUserId = uuidv4();
-        document.cookie = `userId=${uniqueUserId}`
-    }
-
-    const store = useAllBreedsStore();
-    const { getAllBreeds } = store;
-
-    if ( !store.allBreeds.length ) {
-        getAllBreeds();
-    }
-
 </script>
 
 
