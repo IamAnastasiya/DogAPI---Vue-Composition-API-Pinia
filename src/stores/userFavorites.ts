@@ -1,16 +1,14 @@
 import { defineStore } from "pinia";
 import { ref } from 'vue';
-import { getAllFavorites } from "../services/favorites-api";
-import { getCookie } from "../helpers/helpers";
+import { getAllFavorites, deleteFromApiFavorites, addToApiFavorites } from "../services/favorites-api";
 import ImageData from "../models/ImageData";
 
 export const useFavoritesStore = defineStore("userFavorites",  () => {
          
     const favorites = ref<ImageData[]>([]);
-    const error= ref(false);
+    const error = ref(false);
 
-    const getUserFavorites = async() => {
-        const userId = getCookie('userId');
+    const fetchUserFavorites = async(userId: string) => {
         try {
             const data = await getAllFavorites(userId);
             if (data.hasError) {
@@ -20,13 +18,20 @@ export const useFavoritesStore = defineStore("userFavorites",  () => {
                     favorites.value = data.map((item: ImageData) => ({ ...item, isFav: true}));
                 }
             }
-        } catch (er) {
-            console.warn('Error in API request:', er);
+        } catch {
             error.value = true;
         } 
 
     }
 
+    const deleteFromFavorites = async(fav_id: number, image_id: string) => {
+        await deleteFromApiFavorites(fav_id);
+        favorites.value = favorites.value.filter((item) => item.image_id !== image_id);
+    }
 
-    return {favorites, error, getUserFavorites}
+    const addToFavorites = async (id: string, userId: string) => {
+        await addToApiFavorites({"image_id": id, "sub_id": userId});
+    }
+
+    return {favorites, error, fetchUserFavorites, deleteFromFavorites, addToFavorites}
 });

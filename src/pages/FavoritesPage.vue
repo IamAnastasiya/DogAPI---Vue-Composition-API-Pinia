@@ -1,57 +1,38 @@
 <script setup lang="ts">
-    import ImageData from '../models/ImageData';
+    import { ref, onMounted } from 'vue';
     import BackButton from '../components/buttons/BackButton.vue';
     import GridLayout from '../components/layout/GridLayout.vue';
     import LoaderSpinner from '../components/loader/LoaderSpinner.vue';
     import ActionLog from '../components/action-log/ActionLog.vue';
 
-    import { getAllFavorites, deleteFromApiFavorites } from '../services/favorites-api';
     import { getCookie, getCurrentTime } from '../helpers/helpers';
 
     import { userLogsStore } from '../stores/userLogs.ts';
+    import { useFavoritesStore } from '../stores/userFavorites';
     const logStore = userLogsStore();
+    const favoritesStore = useFavoritesStore();
     const { addToFavoritesLog } = logStore;
 
-    import { ref, onMounted } from 'vue';
-
     const userId = getCookie('userId');
-    let userFavorites = ref<{images: ImageData[]}>({images: []});
     const isLoading = ref(false);
-    const hasError = ref(false);
+
 
     onMounted( async () => {
         isLoading.value = true;
-        try {
-            const data = await getAllFavorites(userId);
-            if (data.hasError) {
-                throw new Error('failed to fetch favorites')
-            } else {
-                if (data && data.length) {
-                    userFavorites.value.images = data.map((item: ImageData) => ({ ...item, isFav: true}));
-                }
-            }
-        } catch (error) {
-            console.warn('Error in API request:', error);
-            hasError.value = true;
-        } finally {
-            isLoading.value = false;
-        }
+        await favoritesStore.fetchUserFavorites(userId);
+        isLoading.value = false;
     });
 
-    const deleteFromFav = async (id: string) => {
-
-        const favoriteItem = userFavorites.value.images.find((item) => item.image_id === id);
+    const deleteImage = async (id: string) => {
+        const favoriteItem = favoritesStore.favorites.find((item) => item.image_id === id);
         if (!favoriteItem || !favoriteItem.id) return;
 
-        deleteFromApiFavorites(favoriteItem.id).then(data => { 
-            if (data.status == 200) {
-                userFavorites.value.images = userFavorites.value.images.filter(item => item.image_id !== id);
-            } else {
-                console.error('Failed to delete favorite');  
-            }
-        });  
-        
+        favoritesStore.deleteFromFavorites(favoriteItem.id, id);        
         addToFavoritesLog({id: id, action: 'remove', category: 'favorites', time: getCurrentTime()});
+    }
+
+    const handleErrorCase = async () => {
+        await favoritesStore.fetchUserFavorites(userId);
     }
 
 </script>
@@ -67,17 +48,18 @@
         <LoaderSpinner ></LoaderSpinner>  
     </div>  
 
-    <div v-if="userFavorites.images.length !== 0 || hasError" class="grid-wrapper">
+    <div v-if="!isLoading && favoritesStore.favorites.length !== 0 || favoritesStore.error" class="grid-wrapper">
         <GridLayout 
             :limit="30"
             coverMode="fav"
-            :images="userFavorites.images"
-            @onFavoriteUpdate="deleteFromFav"
-            :error="hasError"
+            :images="favoritesStore.favorites"
+            @onFavoriteUpdate="deleteImage"
+            @onErrorHandling="handleErrorCase"
+            :error="favoritesStore.error"
         ></GridLayout>
     </div>
 
-    <p v-if="!userFavorites.images.length && !isLoading && !hasError" class="empty-text">No item found</p>
+    <p v-if="!favoritesStore.favorites.length && !isLoading && !favoritesStore.error" class="empty-text">No item found</p>
 
     <ActionLog v-for="(info, index) in logStore.favoritesLog" 
             :key="index" 

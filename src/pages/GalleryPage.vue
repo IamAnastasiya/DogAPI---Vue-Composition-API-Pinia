@@ -15,7 +15,6 @@
     import { ORDER_OPTIONS, TYPE_OPTIONS, GALERY_LIMITS } from '../constants/constants.ts';
 
     import { getSetOfImages } from '../services/breeds-api';
-    import { addToApiFavorites, deleteFromApiFavorites } from '../services/favorites-api';
     import { getCookie } from '../helpers/helpers';
 
     import { useAllBreedsStore } from '../stores/allBreeds.ts';
@@ -63,8 +62,8 @@
     }
 
 
-    onMounted( async () => {
-        await favoritesStore.getUserFavorites();
+    onMounted(async () => {
+        await favoritesStore.fetchUserFavorites(userId);
         await fetchImages(baseUrl.value);
     })
 
@@ -81,30 +80,19 @@
 
         if (favoriteImageIds.includes(id)) {
             const favoriteItem = favoritesStore.favorites.find((item) => item.image_id === id);
-
             if (!favoriteItem || !favoriteItem.id) return;
-
-            try {
-                const data = await deleteFromApiFavorites(favoriteItem.id);
-                if (data.status !== 200) {
-                    throw new Error('Failed to delete favorite');
-                }
-            } catch (err) {
-                console.error('Error deleting favorite:', err);
-            }
-           
+            await favoritesStore.deleteFromFavorites(favoriteItem.id, id);
         } else {
-            addToApiFavorites({"image_id": id, "sub_id": userId})
+            await favoritesStore.addToFavorites(id, userId);
         }
+
+        await favoritesStore.fetchUserFavorites(userId);
 
         const updatedImages = images.value.map(image =>
             image.image_id === id ? { ...image, isFav: !image.isFav } : image
         );     
-
         images.value = updatedImages;    
     }
-
-
 
 </script>
 

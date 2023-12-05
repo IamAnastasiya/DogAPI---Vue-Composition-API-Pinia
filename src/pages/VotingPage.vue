@@ -7,15 +7,16 @@
     import VotingLogItem from '../models/VotingLogItem.ts';
 
     import { userLogsStore } from '../stores/userLogs.ts';
+    import { useFavoritesStore } from '../stores/userFavorites';
 
     import { getRandomImage, sendImageVote } from '../services/votes-api';
-    import { addToApiFavorites } from '../services/favorites-api';
     import { getCurrentTime, getCookie } from '../helpers/helpers';
 
     import { ref, reactive, onMounted } from 'vue';
 
-    const store = userLogsStore();
-    const { addToVotingLog } = store;
+    const logsStore = userLogsStore();
+    const favoritesStore = useFavoritesStore();
+    const { addToVotingLog } = logsStore;
 
     const currentPet = reactive({url: '', id: ''});
     const isLoading = ref(false);
@@ -68,7 +69,7 @@
 
     const setAsFavorite = () => {
         try {
-            addToApiFavorites({"image_id": currentPet.id, "sub_id": userId})
+            favoritesStore.addToFavorites(currentPet.id,  userId);
         } catch (error) {
             console.error('An error occurred:', error);
         }
@@ -100,7 +101,7 @@
             <VotingActions @click="showNext"></VotingActions>
         </div>
 
-        <ActionLog v-for="(info, index) in store.votingLog" 
+        <ActionLog v-for="(info, index) in logsStore.votingLog" 
             :key="index" 
             :id="info.id" 
             :action="info.action" 
