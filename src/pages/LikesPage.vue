@@ -1,4 +1,6 @@
 <script setup lang="ts">
+    import { ref, onMounted } from 'vue';
+
     import ImageData from '../models/ImageData';
     import BackButton from '../components/buttons/BackButton.vue';
     import GridLayout from '../components/layout/GridLayout.vue';
@@ -6,9 +8,6 @@
 
     import { getAllVotes } from '../services/votes-api';
     import { getCookie } from '../helpers/helpers';
-
-    import { ref, onMounted } from 'vue';
-
 
     const userId = getCookie('userId');
     const userLikes = ref([]);

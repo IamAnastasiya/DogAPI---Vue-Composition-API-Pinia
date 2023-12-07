@@ -1,5 +1,7 @@
 <script setup lang="ts">
+    import { ref, onMounted, computed, watch } from 'vue';
     import { useRoute } from 'vue-router';
+    
     import GridLayout from '../components/layout/GridLayout.vue';
     import BackButton from '../components/buttons/BackButton.vue';
     import LoaderSpinner from '../components/loader/LoaderSpinner.vue';
@@ -11,9 +13,6 @@
     import {useAllBreedsStore } from '../stores/allBreeds.ts';
 
     const store = useAllBreedsStore();
-    // const { allBreeds } = store;
-
-    import { ref, onMounted, computed, watch } from 'vue';
 
     const fetchedData = ref<{images: ImageData[]}>({images: []});
     const isLoading = ref(false);
@@ -35,15 +34,9 @@
         } finally {
             isLoading.value = false;;
         }
-
     }
 
-    onMounted(async () => {
-        // if ( !allBreeds.length ) {
-        //     await getBreeds();
-        // }
-        fetchImages();
-    })
+    onMounted(async () => { fetchImages();})
 
     
     watch(searchInput,  () => {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
     import { ref, onMounted } from 'vue';
+    
     import BackButton from '../components/buttons/BackButton.vue';
     import GridLayout from '../components/layout/GridLayout.vue';
     import LoaderSpinner from '../components/loader/LoaderSpinner.vue';
@@ -73,7 +74,6 @@
 
 
 <style lang="scss" scoped>
-
     .grid-wrapper {
         margin-bottom: 40px;
     }

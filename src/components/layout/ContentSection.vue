@@ -1,7 +1,9 @@
 <script setup lang="ts">
-    import SectionHeader from '../header/SectionHeader.vue';
     import { useRoute } from 'vue-router';
     import { computed } from 'vue';
+
+    import SectionHeader from '../header/SectionHeader.vue';
+
     import { useMobilemMenuStore } from '../../stores/mobileMenu';
     import {useAllBreedsStore } from '../../stores/allBreeds.ts';
     import { getCookie } from '../../helpers/helpers';

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+    import { ref, onMounted, watch } from 'vue';
+
     import BackButton from '../components/buttons/BackButton.vue';
     import GridLayout from '../components/layout/GridLayout.vue';
     import SelectList from '../components/select/SelectList.vue';
@@ -12,8 +14,6 @@
     import ApiImageData from '../models/ApiImageData';
 
     const store = useAllBreedsStore();
-
-    import { ref, onMounted, watch } from 'vue';
 
     const fetchedData = ref<{images: ImageData[]}>({images: []});
     const isLoading = ref(false);

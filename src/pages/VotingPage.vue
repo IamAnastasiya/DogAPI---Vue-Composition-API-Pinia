@@ -1,4 +1,6 @@
 <script setup lang="ts">
+    import { ref, reactive, onMounted } from 'vue';
+
     import BackButton from '../components/buttons/BackButton.vue';
     import LoaderSpinner from '../components/loader/LoaderSpinner.vue';
     import VotingActions from '../components/voting-actions/VotingActions.vue';
@@ -11,8 +13,6 @@
 
     import { getRandomImage, sendImageVote } from '../services/votes-api';
     import { getCurrentTime, getCookie } from '../helpers/helpers';
-
-    import { ref, reactive, onMounted } from 'vue';
 
     const logsStore = userLogsStore();
     const favoritesStore = useFavoritesStore();

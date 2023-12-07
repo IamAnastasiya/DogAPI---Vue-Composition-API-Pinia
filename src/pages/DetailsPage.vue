@@ -1,4 +1,5 @@
 <script setup lang="ts">
+    import { ref, reactive, onMounted } from 'vue';
 
     import BreedInfo from '../components/breed-info/BreedInfo.vue';
     import ThePagination from '../components/pagination/ThePagination.vue';
@@ -10,13 +11,7 @@
     import {getImagesByBreed, getImageDetails } from '../services/breeds-api.ts';
     import { getIdFromImageUrl } from '../helpers/helpers.ts';
 
-    import { ref, reactive, onMounted } from 'vue';
-
-    interface Props {
-        breedId: string
-    }
-
-    const {breedId}= defineProps<Props>(); 
+    const props = defineProps({ breedId: String})
 
     const isLoading = ref(false);
     const fetchedData = ref<{images: []}>({images: []});
@@ -34,7 +29,7 @@
     onMounted( async () => {
         isLoading.value = true;
         try {
-            const imagesByBreed = await getImagesByBreed(breedId);
+            const imagesByBreed = await getImagesByBreed(props.breedId!);
 
             if (imagesByBreed.error) {
                 hasError.value = true;
@@ -57,10 +52,8 @@
                     life_span: breedDetails.breeds[0].life_span  || ''
                 }
             }
-            
-
         } catch {
-            
+            hasError.value = true;
         } finally {
             isLoading.value = false;
         }

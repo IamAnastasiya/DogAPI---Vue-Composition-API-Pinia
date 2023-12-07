@@ -1,5 +1,6 @@
 <script setup lang="ts">
-
+    import { ref } from 'vue';
+    
     import ModalLog from '../modal/ModalLog.vue';
     import LoaderSpinner from '../loader/LoaderSpinner.vue';
     import { useModalStore } from '../../stores/modal.ts';
@@ -12,7 +13,7 @@
     const { toggleVisibility } = modalStore;
 
     const userId = getCookie('userId');
-    import { ref } from 'vue';
+
     const uploadStatus = ref('new');
     const file = ref<File | null>(null);
     const imageSrc = ref('');
