@@ -73,21 +73,27 @@
 
     const updateFavoriteStatus = async (id: string) => {
         const favoriteImageIds = favoritesStore.favorites.map(favorite => favorite.image_id);
+        const updatedImages = images.value.map(image =>
+            image.image_id === id ? { ...image, isFav: !image.isFav } : image
+        );     
+        images.value = updatedImages; 
+
 
         if (favoriteImageIds.includes(id)) {
             const favoriteItem = favoritesStore.favorites.find((item) => item.image_id === id);
             if (!favoriteItem || !favoriteItem.id) return;
+
+
             await favoritesStore.deleteFromFavorites(favoriteItem.id, id);
         } else {
             await favoritesStore.addToFavorites(id, userId);
         }
 
+
+
         await favoritesStore.fetchUserFavorites(userId);
 
-        const updatedImages = images.value.map(image =>
-            image.image_id === id ? { ...image, isFav: !image.isFav } : image
-        );     
-        images.value = updatedImages;    
+   
     }
 
 </script>
