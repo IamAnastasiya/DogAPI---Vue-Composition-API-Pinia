@@ -148,26 +148,21 @@
         text-align: center;
     }
 
+    @media (max-width: 500px) {
+        .section-title {
+            padding: 5px 20px;
+        }
+
+        .section-id {
+            padding: 5px 10px;
+        }
+    }
+
 
 @media (max-width: 375px) {
-    .image-wrapper {
-        padding-top: 160px;
-    }
-
-    .image {
-        max-height: 160px;
-    }
 
     .title-wrapper {
         flex-shrink: 1;
-    }
-
-    .section-title {
-        padding: 5px 20px;
-    }
-
-    .section-id {
-        padding: 5px 10px;
     }
 }
 

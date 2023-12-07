@@ -12,8 +12,7 @@ export const capitalize = (str: string) => str.replace(/(^\w|\s\w)/g, m => m.toU
 export const getIdFromImageUrl = (currentImageUrl: string) => {
     const parts = currentImageUrl.split('/');
     const idWithExtension = parts[parts.length - 1];
-    let id = idWithExtension.split('.')[0]; 
-    return id.includes('_') ? id.split('_')[0] : id;
+    return idWithExtension.substring(0, 9);
 }
 
 
