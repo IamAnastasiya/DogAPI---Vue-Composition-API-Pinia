@@ -1,10 +1,8 @@
 <script setup lang="ts">
-    import { ref, reactive, onMounted } from 'vue';
+    import { ref, reactive, onMounted, defineAsyncComponent } from 'vue';
 
-    import BackButton from '../components/buttons/BackButton.vue';
-    import LoaderSpinner from '../components/loader/LoaderSpinner.vue';
-    import VotingActions from '../components/voting-actions/VotingActions.vue';
-    import ActionLog from '../components/action-log/ActionLog.vue';
+    const ActionLog = defineAsyncComponent(() => import('../components/action-log/ActionLog.vue'));
+    const VotingActions = defineAsyncComponent(() => import('../components/voting-actions/VotingActions.vue'));
 
     import VotingLogItem from '../models/VotingLogItem.ts';
 
@@ -91,13 +89,13 @@
 
     <div v-else>
         <div class="title-wrapper">
-            <BackButton></BackButton>
+            <back-button></back-button>
             <span class="section-title">VOTING</span>
         </div>
         <div class="image-wrapper">
             <img v-if="!isLoading && currentPet.url" :src="currentPet.url" alt="dog"/> 
             
-            <LoaderSpinner v-if="isLoading"/>
+            <loader-spinner v-if="isLoading"/>
             <VotingActions @select-category="showNext"></VotingActions>
         </div>
 

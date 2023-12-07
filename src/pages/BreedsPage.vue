@@ -1,11 +1,6 @@
 <script setup lang="ts">
     import { ref, onMounted, watch } from 'vue';
 
-    import BackButton from '../components/buttons/BackButton.vue';
-    import GridLayout from '../components/layout/GridLayout.vue';
-    import SelectList from '../components/select/SelectList.vue';
-    import LoaderSpinner from '../components/loader/LoaderSpinner.vue';
-
     import {useAllBreedsStore } from '../stores/allBreeds.ts';
     import { getSetOfImages } from '../services/breeds-api';
     import { BREEDS_DEFAULT, BREED_LIMITS } from '../constants/constants.ts';
@@ -94,37 +89,37 @@
 
 <template>
     <div class="title-wrapper">
-        <BackButton></BackButton>
+        <back-button></back-button>
         <span class="section-title">BREEDS</span>
-        <SelectList                         
+        <select-list                         
             :options="store.allBreeds" 
             :defaultText="BREEDS_DEFAULT" 
             :width="226"
             bgColor="gray"
             @set-value="breedSelectHandler"
-        ></SelectList>
+        ></select-list >
         <div>
-            <SelectList 
+            <select-list 
                 :options="BREED_LIMITS" 
                 :initial="BREED_LIMITS[1]"
                 :width="101"
                 bgColor="gray" 
                 @set-value="limitSelectHandler"
-            ></SelectList>
+            ></select-list>
             <button class="filter-ZA" @click="() => sortingHandler('DESC')"></button>
             <button class="filter-AZ" @click="() => sortingHandler('ASC')"></button>
         </div>
     </div>
 
-    <div v-if="isLoading" class="loader-wrapper"><LoaderSpinner /></div>
+    <div v-if="isLoading" class="loader-wrapper"><loader-spinner /></div>
 
-    <GridLayout v-if="!isLoading && (fetchedData.images.length || hasError)" 
+    <grid-layout v-if="!isLoading && (fetchedData.images.length || hasError)" 
         :images="fetchedData.images" 
         :limit="30"
         coverMode="breed" 
         :error="hasError"
         @error-handling="handleErrorCase"
-    ></GridLayout>
+    ></grid-layout>
     
     <div v-if="!hasError && !fetchedData.images.length && !isLoading" class="empty-text">No item found</div>
 

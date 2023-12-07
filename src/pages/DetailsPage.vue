@@ -1,10 +1,8 @@
 <script setup lang="ts">
-    import { ref, reactive, onMounted } from 'vue';
+    import { ref, reactive, onMounted, defineAsyncComponent } from 'vue';
 
-    import BreedInfo from '../components/breed-info/BreedInfo.vue';
-    import ThePagination from '../components/pagination/ThePagination.vue';
-    import BackButton from '../components/buttons/BackButton.vue';
-    import LoaderSpinner from '../components/loader/LoaderSpinner.vue';
+    const ThePagination = defineAsyncComponent(() => import('../components/pagination/ThePagination.vue'))
+    const BreedInfo = defineAsyncComponent(() => import('../components/breed-info/BreedInfo.vue'))
 
     import BreedData from '../models/BreedData';
 
@@ -68,13 +66,13 @@
 
 <template>
      <div class="title-wrapper">
-        <BackButton></BackButton>
+        <back-button></back-button>
         <span class="section-title">BREEDS</span>
         <div class="section-id">{{ details.id }}</div>
     </div>
 
     <div v-if="fetchedData.images.length" class="image-wrapper">
-        <div v-if="isLoading" class="loader-wrapper"><LoaderSpinner/></div>
+        <div v-if="isLoading" class="loader-wrapper"><loader-spinner/></div>
         <img 
             :src="fetchedData.images[imageNumber]" 
             alt="dog image" 

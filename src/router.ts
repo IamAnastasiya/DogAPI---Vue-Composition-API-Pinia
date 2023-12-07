@@ -1,14 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { defineAsyncComponent } from 'vue';
 
 import VotingPage from './pages/VotingPage.vue';
 import HomePage from './pages/HomePage.vue';
 import BreedsPage from './pages/BreedsPage.vue';
-import DetailsPage from './pages/DetailsPage.vue';
 import GalleryPage from './pages/GalleryPage.vue';
-import LikesPage from './pages/LikesPage.vue';
-import DislikesPage from './pages/DislikesPage.vue';
-import FavoritesPage from './pages/FavoritesPage.vue';
-import SearchPage from './pages/SearchPage.vue';
+const DetailsPage = defineAsyncComponent(() => import('./pages/DetailsPage.vue'));
+const LikesPage = defineAsyncComponent(() => import('./pages/LikesPage.vue'));
+const DislikesPage = defineAsyncComponent(() => import('./pages/DislikesPage.vue'));
+const FavoritesPage = defineAsyncComponent(() => import('./pages/FavoritesPage.vue'));
+const SearchPage = defineAsyncComponent(() => import('./pages/SearchPage.vue'));
 
 
 const router = createRouter({

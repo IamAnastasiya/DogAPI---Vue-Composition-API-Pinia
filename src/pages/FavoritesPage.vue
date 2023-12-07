@@ -1,10 +1,7 @@
 <script setup lang="ts">
-    import { ref, onMounted } from 'vue';
-    
-    import BackButton from '../components/buttons/BackButton.vue';
-    import GridLayout from '../components/layout/GridLayout.vue';
-    import LoaderSpinner from '../components/loader/LoaderSpinner.vue';
-    import ActionLog from '../components/action-log/ActionLog.vue';
+    import { ref, onMounted, defineAsyncComponent } from 'vue';
+
+    const ActionLog = defineAsyncComponent(() => import('../components/action-log/ActionLog.vue'))
 
     import { getCookie, getCurrentTime } from '../helpers/helpers';
 
@@ -41,23 +38,23 @@
 
 <template>
     <div class="title-wrapper">
-        <BackButton></BackButton>
+        <back-button></back-button>
         <span class="section-title">FAVORITES</span>
     </div>
 
     <div v-if="isLoading" class="loader-wrapper">
-        <LoaderSpinner ></LoaderSpinner>  
+        <loading-spinner />
     </div>  
 
     <div v-if="!isLoading && favoritesStore.favorites.length !== 0 || favoritesStore.error" class="grid-wrapper">
-        <GridLayout 
+        <grid-layout 
             :limit="30"
             coverMode="fav"
             :images="favoritesStore.favorites"
             @update-favorite="deleteImage"
             @error-handling="handleErrorCase"
             :error="favoritesStore.error"
-        ></GridLayout>
+        ></grid-layout>
     </div>
 
     <p v-if="!favoritesStore.favorites.length && !isLoading && !favoritesStore.error" class="empty-text">No item found</p>

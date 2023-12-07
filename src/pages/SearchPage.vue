@@ -1,10 +1,6 @@
 <script setup lang="ts">
     import { ref, onMounted, computed, watch } from 'vue';
     import { useRoute } from 'vue-router';
-    
-    import GridLayout from '../components/layout/GridLayout.vue';
-    import BackButton from '../components/buttons/BackButton.vue';
-    import LoaderSpinner from '../components/loader/LoaderSpinner.vue';
 
     import ImageData from '../models/ImageData';
 
@@ -64,18 +60,18 @@
 
 <template>
     <div class="title-wrapper">
-        <BackButton></BackButton>
+        <back-button></back-button>
         <span class="section-title">SEARCH</span>
     </div>
 
     <p class="result-text">Search results for: &apos;<span class="input">{{searchInput}}</span> &apos;</p>              
-    <div v-if="isLoading" class="loader-wrapper"><LoaderSpinner /></div>
+    <div v-if="isLoading" class="loader-wrapper"><loader-spinner /></div>
 
-    <GridLayout v-if="!isLoading && fetchedData.images.length !== 0" 
+    <grid-layout v-if="!isLoading && fetchedData.images.length !== 0" 
         :limit="1" 
         :images="fetchedData.images" 
         coverMode="breed"
-    ></GridLayout>
+    ></grid-layout>
 
     <div v-if="!isLoading && !fetchedData.images.length" class="empty-text">No item found</div>  
 </template>

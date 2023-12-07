@@ -1,13 +1,9 @@
 <script setup lang="ts">
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, defineAsyncComponent } from 'vue';
 
-    import BackButton from '../components/buttons/BackButton.vue';
-    import UploadButton from '../components/buttons/UploadButton.vue';
-    import SelectList from '../components/select/SelectList.vue';
-    import LoaderSpinner from '../components/loader/LoaderSpinner.vue';
-    import GridLayout from '../components/layout/GridLayout.vue';
-    import ModalContainer from '../components/modal/ModalContainer.vue';
-    import ModalContent from '../components/modal/ModalContent.vue';
+    const UploadButton = defineAsyncComponent(() => import('../components/buttons/UploadButton.vue'));
+    const ModalContainer = defineAsyncComponent(() => import('../components/modal/ModalContainer.vue'));
+    const ModalContent = defineAsyncComponent(() => import('../components/modal/ModalContent.vue'));
 
     import ApiImageData from '../models/ApiImageData';
     import ImageData from '../models/ImageData';
@@ -30,7 +26,7 @@
     const error = ref(favoritesStore.error);
     const order = ref('RAND');
     const type = ref('gif,jpg,png');
-    const chosenBreed = ref('');
+    const chosenBreed = ref<string | number>('None');
     const limit = ref(5);
     const baseUrl = ref("images/search?&has_breeds=1&limit=5&order=RAND");
     const images = ref<ImageData[]>([]);
@@ -100,62 +96,62 @@
 <template>
     <div class="title-wrapper">
         <div class="back-block">
-            <BackButton></BackButton>
+            <back-button></back-button>
             <div class="section-title">GALLERY</div>
         </div>
-        <UploadButton></UploadButton>
+        <UploadButton />
         <ModalContainer v-if="modalStore.isVisible"><ModalContent /> </ModalContainer>
     </div>
 
     <div class="filters-wrapper">
-        <SelectList 
+        <select-list 
             :options="ORDER_OPTIONS" 
             :width="290"
             :initial="ORDER_OPTIONS[0]"
             name="ORDER" 
             bgColor="white" 
-            @set-value="(value) => order = value"
-        ></SelectList>
-        <SelectList 
+            @set-value="(value: string) => order = value"
+        ></select-list>
+        <select-list 
             :options="TYPE_OPTIONS" 
             :width="290" 
             :initial="TYPE_OPTIONS[0]"
             name="TYPE" 
             bgColor="white" 
-            @set-value="(value) => type = value"
-        ></SelectList>
-        <SelectList 
+            @set-value="(value: string) => type = value"
+        ></select-list>
+        <select-list  
             :options="breedsStore.allBreeds"
             defaultText="None"
             :width="290" 
             name="BREED" 
             bgColor="white"   
-            @set-value="(value) => chosenBreed = value"
-        ></SelectList>
+            @set-value="(value: number | string) => chosenBreed = value"
+        ></select-list>
         <div>
-            <SelectList 
+            <select-list  
                 :options="GALERY_LIMITS" 
                 :width="240" 
                 :initial="GALERY_LIMITS[0]"
                 name="LIMIT" 
                 bgColor="white" 
-                @set-value="(value) => limit = +value"
-            ></SelectList>
+                @set-value="(value: number) => limit = +value"
+            ></select-list>
             <button class="action-button" @click="handleUpdateAction"></button>
         </div>
 
     </div>
 
-    <div v-if="isLoading" class="loader-wrapper"><LoaderSpinner /></div>
+    <div v-if="isLoading" class="loader-wrapper"><loader-spinner /></div>
     <div v-if=" !isLoading && !error && !images.length" class="empty-text">No item found</div>
 
-    <GridLayout v-if="!isLoading && (images.length || error)"
+    <grid-layout v-if="!isLoading && (images.length || error)"
         :limit="20" 
         :images="images"
         :error="error"
         coverMode="fav"
         @update-favorite="updateFavoriteStatus"
-    ></GridLayout>
+    ></grid-layout>
 
 </template>
 

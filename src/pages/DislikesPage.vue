@@ -2,9 +2,6 @@
     import { ref, onMounted } from 'vue';
 
     import ImageData from '../models/ImageData';
-    import BackButton from '../components/buttons/BackButton.vue';
-    import GridLayout from '../components/layout/GridLayout.vue';
-    import LoaderSpinner from '../components/loader/LoaderSpinner.vue';
 
     import { getAllVotes } from '../services/votes-api';
     import { getCookie } from '../helpers/helpers';
@@ -40,19 +37,19 @@
 
 <template>
     <div class="title-wrapper">
-        <BackButton></BackButton>
+        <back-button></back-button>
         <span class="section-title">DISLIKES</span>
     </div> 
 
     <div v-if="isLoading" class="loader-wrapper">
-        <LoaderSpinner ></LoaderSpinner>  
+        <loading-spinner />
     </div>   
 
-    <GridLayout v-if="dislikes.length !== 0 || hasError"
+    <grid-layout v-if="dislikes.length !== 0 || hasError"
         :limit="60"
         :images="dislikes" 
         :error="hasError"
-    ></GridLayout>
+    ></grid-layout>
 
     <p v-if="!dislikes.length && !isLoading && !hasError" class="empty-text">No item found</p>
 </template>
