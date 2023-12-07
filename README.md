@@ -16,3 +16,18 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
    1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
    2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+   
+## Project Description
+This is a pet project cteated with Vue.js (Composition API) + Pinia and using theDogAPI as backend; related docs - https://developers.thedogapi.com/ 
+
+With this project You can:
+vote for cats images on Voting page (https://dog-api-vue-composition-api-pinia.vercel.app/voting)
+see all breeds/filtered breeds on Breeds page (https://dog-api-vue-composition-api-pinia.vercel.app/breeds)
+detailed information about a breed on breed details page (e.g https://dog-api-vue-composition-api-pinia.vercel.app/breeds/4)
+see cats images in gallery, possible to set filters + add to favorites (https://dog-api-vue-composition-api-pinia.vercel.app/gallery)
+possible also to upload Your own cat image on Gallery page with 'Upload' button
+see images, that were previously voted for on likes/dislikes/favorites pages (like: https://dog-api-vue-composition-api-pinia.vercel.app/likes)
+search for breed  (https://dog-api-vue-composition-api-pinia.vercel.app/search?breed=husk)
+
+## Deploy on Vercel
+You can visit the page on: https://dog-api-vue-composition-api-pinia.vercel.app/ 
