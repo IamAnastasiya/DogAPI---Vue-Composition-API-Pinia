@@ -6,8 +6,7 @@
     const props = defineProps({
         mode: String,
         href: String as () => string | undefined, 
-        icon: String as () => string | undefined, 
-        onClick: Function
+        icon: String as () => string | undefined
     });
 
     const currentPath = computed(() => {

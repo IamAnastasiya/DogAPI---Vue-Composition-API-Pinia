@@ -11,7 +11,7 @@
     import {useAllBreedsStore } from '../stores/allBreeds.ts';
 
     const store = useAllBreedsStore();
-    const { getAllBreeds, allBreeds } = store;
+    // const { allBreeds } = store;
 
     import { ref, onMounted, computed, watch } from 'vue';
 
@@ -27,7 +27,7 @@
 
         try {
             const userInput = searchInput.value;
-            const breed = getBreedId(allBreeds, userInput);
+            const breed = getBreedId(store.allBreeds, userInput);
 
             await handleSearch(breed);
         } catch (error) {
@@ -39,9 +39,9 @@
     }
 
     onMounted(async () => {
-        if ( !allBreeds.length ) {
-            await getAllBreeds();
-        }
+        // if ( !allBreeds.length ) {
+        //     await getBreeds();
+        // }
         fetchImages();
     })
 

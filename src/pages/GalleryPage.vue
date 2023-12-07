@@ -114,7 +114,7 @@
             :initial="ORDER_OPTIONS[0]"
             name="ORDER" 
             bgColor="white" 
-            :onSetValue="(value) => order = value"
+            @set-value="(value) => order = value"
         ></SelectList>
         <SelectList 
             :options="TYPE_OPTIONS" 
@@ -122,7 +122,7 @@
             :initial="TYPE_OPTIONS[0]"
             name="TYPE" 
             bgColor="white" 
-            :onSetValue="(value) => type = value"
+            @set-value="(value) => type = value"
         ></SelectList>
         <SelectList 
             :options="breedsStore.allBreeds"
@@ -130,7 +130,7 @@
             :width="290" 
             name="BREED" 
             bgColor="white"   
-            :onSetValue="(value) => chosenBreed = value"
+            @set-value="(value) => chosenBreed = value"
         ></SelectList>
         <div>
             <SelectList 
@@ -139,7 +139,7 @@
                 :initial="GALERY_LIMITS[0]"
                 name="LIMIT" 
                 bgColor="white" 
-                :onSetValue="(value) => limit = +value"
+                @set-value="(value) => limit = +value"
             ></SelectList>
             <button class="action-button" @click="handleUpdateAction"></button>
         </div>
@@ -154,7 +154,7 @@
         :images="images"
         :error="error"
         coverMode="fav"
-        @onFavoriteUpdate="updateFavoriteStatus"
+        @update-favorite="updateFavoriteStatus"
     ></GridLayout>
 
 </template>

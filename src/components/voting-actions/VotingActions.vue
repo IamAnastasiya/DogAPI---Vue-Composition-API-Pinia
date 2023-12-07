@@ -5,19 +5,16 @@
         Dislike = 'dislikes',
     }
 
-    const props = defineProps(['onClick']);
+    const emit = defineEmits(['selectCategory']);
 
-    const handleClick = (buttonType: ButtonType) => {
-        props.onClick(buttonType);
-    };
 </script>
 
 
 <template>
     <div class="actions-wrapper">
-        <button class="like" @click="() => handleClick(ButtonType.Like)"></button>
-        <button class="favorite" @click="() => handleClick(ButtonType.Favorite)"></button>
-        <button class="dislike" @click="() => handleClick(ButtonType.Dislike)"></button>
+        <button class="like" @click="$emit('selectCategory', ButtonType.Like)"></button>
+        <button class="favorite" @click="$emit('selectCategory', ButtonType.Favorite)"></button>
+        <button class="dislike" @click="$emit('selectCategory', ButtonType.Dislike)"></button>
     </div>
 </template>
 

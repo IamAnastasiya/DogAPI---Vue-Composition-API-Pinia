@@ -1,12 +1,11 @@
 <script setup lang="ts">
     import ImageData from '../../models/ImageData';
-    const emit = defineEmits(['onFavoriteUpdate']);
+    const emit = defineEmits(['updateFavorite']);
 
     interface Props {
         item: ImageData, 
         index: number, 
-        coverMode?: string, 
-        onFavoriteUpdate?: Function
+        coverMode?: string
     }
 
     const props = defineProps<Props>(); 
@@ -30,7 +29,7 @@
             <div 
                 class="cover-content fav"
                 :class="props.item!.isFav ? 'is-favorite' : ''" 
-                @click="$emit('onFavoriteUpdate', props.item!.image_id)">
+                @click="$emit('updateFavorite', props.item!.image_id)">
             </div>
         </div>
       </div>

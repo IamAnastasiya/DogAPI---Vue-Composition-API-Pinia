@@ -3,15 +3,13 @@
 
     import ImageData from '../../models/ImageData';
     import GridItem from './GridItem.vue';
-    const emit = defineEmits(['onFavoriteUpdate', 'onErrorHandling']);
+    const emit = defineEmits(['updateFavorite', 'errorHandling']);
 
     interface Props {
         images: ImageData[];
         limit?: number;
         coverMode?: 'breed' | 'fav';
         error?: boolean;
-        onFavoriteUpdate?: Function;
-        onErrorHandling?: Function;
     }
     const props = defineProps<Props>(); 
 
@@ -23,7 +21,7 @@
 <template>
     <div v-if="props.error" class="error-wrapper">
         <span class="error">Something went wrong, please try again</span>
-        <button class="reload-button" @click="$emit('onErrorHandling')"></button>
+        <button class="reload-button" @click="$emit('errorHandling')"></button>
     </div>
 
    <ul class="grid-layout">
@@ -40,7 +38,7 @@
                 :index="index"
                 :coverMode="props.coverMode || ''" 
                 :item="image"
-                @onFavoriteUpdate="$emit('onFavoriteUpdate', image.image_id)"
+                @update-favorite="$emit('updateFavorite', image.image_id)"
             />
         </li>
     </ul>

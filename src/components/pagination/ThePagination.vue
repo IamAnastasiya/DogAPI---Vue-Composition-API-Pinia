@@ -1,10 +1,11 @@
 <script setup lang="ts">
     import { computed } from 'vue';
 
+    const emit = defineEmits(['setPagination']);
+
     const props = defineProps({
         count: Number,
-        active: Number,
-        setPagination: Function
+        active: Number
     })
 
     const paginationDots = computed(() => {
@@ -24,7 +25,7 @@
         <li v-for="(dot, index) in paginationDots" 
             :key="String(dot)" 
             :class="['pagination-dot', index === props.active ? 'active' : '']" 
-            @click="props.setPagination!(index)">
+            @click="$emit('setPagination', index)">
         </li>
     </ul>
 </template>

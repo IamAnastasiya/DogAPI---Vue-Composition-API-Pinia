@@ -1,8 +1,8 @@
 <script setup lang="ts">
-        const props = defineProps({
-            result: String,
-            onErrorHandling: Function
-        })
+
+    const emit = defineEmits(['errorHandling']);
+    const props = defineProps({ result: String});
+
 </script>
 
 
@@ -10,10 +10,10 @@
     <p v-if="props.result === 'success'" 
         class="success-text">Thanks for the Upload - Dog found!
     </p>
-    <p v-if="props.result === 'error'" @click="props.onErrorHandling"
+    <p v-if="props.result === 'error'" @click="$emit('errorHandling')"
         class="error-text">No dog found - try a different one
     </p>
-    <p v-if="props.result === 'wrong-format'" @click="props.onErrorHandling"
+    <p v-if="props.result === 'wrong-format'" @click="$emit('errorHandling')"
         class="error-text">Only .jpg or .png files are accepted 
     </p>
 </template>

@@ -2,21 +2,23 @@
 
     import { ref } from 'vue';
 
+    const emit = defineEmits(['setValue']);
+
     interface Props {
         options: {name: string, value: string}[]; 
         initial?: {name: string, value: string}; 
         bgColor: string; 
         defaultText?: string; 
         name?: string; 
-        width: number; 
-        onSetValue: (value: string) => void;
+        width: number;
     }
+    
     const props = defineProps<Props>(); 
     const selectedValue = ref<string | undefined>(props.initial?.value || props.defaultText);
 
     const handleChange = (event: Event) => {
         const target = event.target as HTMLSelectElement;
-        props.onSetValue(target.value);
+        emit('setValue', target.value);
     };
 
 

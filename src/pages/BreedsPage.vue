@@ -12,7 +12,6 @@
     import ApiImageData from '../models/ApiImageData';
 
     const store = useAllBreedsStore();
-    // const { getAllBreeds } = store;
 
     import { ref, onMounted, watch } from 'vue';
 
@@ -102,7 +101,7 @@
             :defaultText="BREEDS_DEFAULT" 
             :width="226"
             bgColor="gray"
-            :onSetValue="breedSelectHandler"
+            @set-value="breedSelectHandler"
         ></SelectList>
         <div>
             <SelectList 
@@ -110,7 +109,7 @@
                 :initial="BREED_LIMITS[1]"
                 :width="101"
                 bgColor="gray" 
-                :onSetValue="limitSelectHandler"
+                @set-value="limitSelectHandler"
             ></SelectList>
             <button class="filter-ZA" @click="() => sortingHandler('DESC')"></button>
             <button class="filter-AZ" @click="() => sortingHandler('ASC')"></button>
@@ -124,7 +123,7 @@
         :limit="30"
         coverMode="breed" 
         :error="hasError"
-        @onErrorHandling="handleErrorCase"
+        @error-handling="handleErrorCase"
     ></GridLayout>
     
     <div v-if="!hasError && !fetchedData.images.length && !isLoading" class="empty-text">No item found</div>

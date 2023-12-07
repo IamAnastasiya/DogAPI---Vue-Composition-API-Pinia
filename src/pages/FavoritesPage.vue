@@ -53,8 +53,8 @@
             :limit="30"
             coverMode="fav"
             :images="favoritesStore.favorites"
-            @onFavoriteUpdate="deleteImage"
-            @onErrorHandling="handleErrorCase"
+            @update-favorite="deleteImage"
+            @error-handling="handleErrorCase"
             :error="favoritesStore.error"
         ></GridLayout>
     </div>

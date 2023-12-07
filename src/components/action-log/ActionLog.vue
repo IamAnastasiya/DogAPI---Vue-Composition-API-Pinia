@@ -1,6 +1,5 @@
 <script setup lang="ts">
     import { capitalize } from '../../helpers/helpers';
-    // import { computed } from 'vue';
 
     const props = defineProps({
         id: String,

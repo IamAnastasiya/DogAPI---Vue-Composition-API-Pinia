@@ -1,17 +1,12 @@
 <script setup lang="ts">
     import { useModalStore } from '../../stores/modal.ts';
     const modalStore = useModalStore();
-    const { toggleVisibility } = modalStore;
 
-
-    const handleModal = () => {     
-        toggleVisibility();
-    }
 </script>
 
 
 <template>
-    <button class="upload" type="button" @click="handleModal">UPLOAD</button>
+    <button class="upload" type="button" @click="modalStore.toggleVisibility">UPLOAD</button>
 </template>
 
 
@@ -32,7 +27,6 @@
     }
 
     .upload::before {
-        // content: url('../..assets/icons/upload-16.svg');
         content: url('../../assets/icons/upload-16.svg');
         position: absolute;
         top: 30%;

@@ -87,9 +87,8 @@
             alt="dog image" 
             class="image"
             :class="!isLoading ? 'visible' : ''"
-            onLoadingComplete="handleLoadEvent"
         />
-        <ThePagination :count="fetchedData.images.length" :active="imageNumber" :setPagination="showNextImage"/>
+        <ThePagination :count="fetchedData.images.length" :active="imageNumber" @set-pagination="showNextImage"/>
     </div>
 
     <BreedInfo v-if="fetchedData.images.length" :info="details"></BreedInfo>

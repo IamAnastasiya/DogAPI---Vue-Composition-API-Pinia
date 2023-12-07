@@ -48,29 +48,29 @@
 
 
     const onUploadHandler = async () => {
-    isLoading.value = true;
-    
-    if (file.value) {
-        if (!fileName.value.includes('.png') && !fileName.value.includes('.jpg')) {
-            uploadStatus.value = 'wrong-format';
-            isLoading.value = false;
-            return;
-        }
-
-        try {
-            const data = await sendNewImage(file.value, userId);
-            if (!data.ok) {
-                throw new Error('Failed to send image');
+        isLoading.value = true;
+        
+        if (file.value) {
+            if (!fileName.value.includes('.png') && !fileName.value.includes('.jpg')) {
+                uploadStatus.value = 'wrong-format';
+                isLoading.value = false;
+                return;
             }
 
-            uploadStatus.value = 'success';
-        } catch (error) {
-            uploadStatus.value = 'error';
-            console.error('Network Error:', error);
-        } finally {
-            isLoading.value = false;
+            try {
+                const data = await sendNewImage(file.value, userId);
+                if (!data.ok) {
+                    throw new Error('Failed to send image');
+                }
+
+                uploadStatus.value = 'success';
+            } catch (error) {
+                uploadStatus.value = 'error';
+                console.error('Network Error:', error);
+            } finally {
+                isLoading.value = false;
+            }
         }
-    }
 };
 
     const cancelModalHandler = () => {
@@ -116,7 +116,7 @@
         UPLOAD PHOTO
     </button>
     
-    <ModalLog :result="uploadStatus" :onErrorHandling="handleError"/>
+    <ModalLog :result="uploadStatus" @error-handling="handleError"/>
 </template>
 
 

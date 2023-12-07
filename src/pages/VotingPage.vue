@@ -98,7 +98,7 @@
             <img v-if="!isLoading && currentPet.url" :src="currentPet.url" alt="dog"/> 
             
             <LoaderSpinner v-if="isLoading"/>
-            <VotingActions @click="showNext"></VotingActions>
+            <VotingActions @select-category="showNext"></VotingActions>
         </div>
 
         <ActionLog v-for="(info, index) in logsStore.votingLog" 
