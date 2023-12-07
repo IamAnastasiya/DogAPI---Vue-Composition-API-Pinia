@@ -88,6 +88,10 @@
             margin: 0;
         }
 
+        .title {
+            @include size-color-weight-height(20px, #1D1D1D, 700, 48px);
+        }
+
         .details {
             flex-direction: column;
         }

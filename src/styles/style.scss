@@ -73,6 +73,14 @@ a {
 }
 
 
+@media (max-width: 368px) {
+    .reload-button:hover {
+        background-color: #FFF;
+        background-image: url('../assets/icons/action-colar.svg');
+    }
+}
+
+
 // :root {
 //   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 //   line-height: 1.5;

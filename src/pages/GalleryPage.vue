@@ -227,7 +227,7 @@
     @media (max-width: 400px) {
         .action-button:hover {
             background-color: #FFF;
-            background-image: url('/icons/action-colar.svg');
+            background-image: url('../assets/icons/action-colar.svg');
         }
 }
 
