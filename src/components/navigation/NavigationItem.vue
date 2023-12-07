@@ -15,7 +15,9 @@
     })
 
     const handleMobileMenuClick = () => {
-        store.toggleMenuVisibility();
+        if (store.isOpen) {
+            store.toggleMenuVisibility();
+        }
     }
 
 </script>
