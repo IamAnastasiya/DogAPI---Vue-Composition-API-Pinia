@@ -62,7 +62,9 @@
     @media (max-width: 400px) {
         .success-text, .error-text {
             font-size: 16px;
+            padding: 15px 10px 15px 0;
         }
+
 
     }
 

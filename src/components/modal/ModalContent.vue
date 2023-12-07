@@ -238,13 +238,6 @@
 
     @media (max-width: 375px) {
 
-        .cross {
-            max-width: 60px;
-            flex-basis: 60px;
-            margin-bottom: 20px;
-            background-image: url('../../assets/icons/cross-colar-60.svg');
-        }
-        
         .title {
             @include size-color-weight-height(20px, #1D1D1D, 500, 30px);
         }
